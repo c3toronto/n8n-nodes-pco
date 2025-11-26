@@ -30,6 +30,7 @@ export class people implements INodeType {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': '={{ "Basic " + Buffer.from($credentials.username + ":" + $credentials.password).toString("base64") }}',
       },
       baseURL: '={{$credentials.url}}',
     },
