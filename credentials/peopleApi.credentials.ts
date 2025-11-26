@@ -3,7 +3,7 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class PeopleApi implements ICredentialType {
+export class peopleApi implements ICredentialType {
 	name = 'peopleApi';
 	displayName = 'People API';
 	properties: INodeProperties[] = [
@@ -11,7 +11,7 @@ export class PeopleApi implements ICredentialType {
 			displayName: 'URL',
 			name: 'url',
 			type: 'string',
-			default: '',
+			default: 'https://api.planningcenteronline.com/people/v2',
 		},
 		{
 			displayName: 'Username',
