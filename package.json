@@ -1,6 +1,6 @@
 {
   "name": "@c3toronto/n8n-nodes-pco",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "n8n node to connect with Planning Center Online",
   "keywords": [
     "n8n-community-node-package"
@@ -38,7 +38,8 @@
       "dist/credentials/peopleApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/pco/people.node.js"
+      "dist/nodes/pco/people.node.js",
+      "dist/nodes/pco/pcoWorkflowActions.node.js"
     ]
   },
   "dependencies": {

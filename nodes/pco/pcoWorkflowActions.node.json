@@ -1,0 +1,17 @@
+{
+	"node": "n8n-nodes-base.pcoWorkflowActions",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Miscellaneous"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://developer.planning.center/docs/#/apps/people"
+			}
+		]
+	},
+	"alias": ["planning center", "pco", "workflow", "card", "skip", "promote"],
+	"subcategories": {
+		"Miscellaneous": ["Other"]
+	}
+}

@@ -93,7 +93,7 @@ export class people implements INodeType {
   description: INodeTypeDescription = {
     displayName: 'Planning Center People',
     name: 'people',
-    icon: 'file:logo.png',
+    icon: 'file:logo.svg',
     group: [],
     version: 1,
     subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
