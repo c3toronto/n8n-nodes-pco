@@ -57,7 +57,7 @@ async function pcoRequest(
 	throw new NodeApiError(context.getNode(), { message: 'Max retries exceeded' });
 }
 
-export class PcoWorkflowActions implements INodeType {
+export class pcoWorkflowActions implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'PCO Workflow Actions',
 		name: 'pcoWorkflowActions',

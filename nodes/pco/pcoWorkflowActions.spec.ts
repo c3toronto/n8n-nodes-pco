@@ -1,8 +1,8 @@
-import { PcoWorkflowActions } from './pcoWorkflowActions.node';
+import { pcoWorkflowActions } from './pcoWorkflowActions.node';
 
-describe('PcoWorkflowActions', () => {
+describe('pcoWorkflowActions', () => {
 	test('smoke: node description is valid', () => {
-		const node = new PcoWorkflowActions();
+		const node = new pcoWorkflowActions();
 		expect(node.description.properties).toBeDefined();
 		expect(node.description.name).toBe('pcoWorkflowActions');
 		expect(node.description.credentials).toEqual([
@@ -11,7 +11,7 @@ describe('PcoWorkflowActions', () => {
 	});
 
 	test('has all four operations', () => {
-		const node = new PcoWorkflowActions();
+		const node = new pcoWorkflowActions();
 		const operationProp = node.description.properties.find(
 			(p) => p.name === 'operation',
 		);
@@ -28,7 +28,7 @@ describe('PcoWorkflowActions', () => {
 	});
 
 	test('target_step_id only shows for skip_to_step', () => {
-		const node = new PcoWorkflowActions();
+		const node = new pcoWorkflowActions();
 		const targetStep = node.description.properties.find(
 			(p) => p.name === 'target_step_id',
 		);
@@ -38,7 +38,7 @@ describe('PcoWorkflowActions', () => {
 	});
 
 	test('max_skips defaults to 10', () => {
-		const node = new PcoWorkflowActions();
+		const node = new pcoWorkflowActions();
 		const maxSkips = node.description.properties.find(
 			(p) => p.name === 'max_skips',
 		);
