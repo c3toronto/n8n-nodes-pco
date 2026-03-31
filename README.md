@@ -2,9 +2,11 @@
 
 ![n8n.io - Workflow Automation](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png)
 
-This is an n8n community node that lets you use [Planning Center Online](https://www.planningcenteronline.com/) (People API) in your n8n workflows.
+This is an n8n community node that lets you use [Planning Center Online](https://www.planningcenteronline.com/) in your n8n workflows.
 
-Planning Center People helps you manage contact data, membership info, and everything you need to know about your people with confidence.
+It includes two nodes:
+- **Planning Center People** - Full access to the People API (contacts, lists, forms, workflows, and more)
+- **PCO Workflow Actions** - Perform actions on workflow cards (skip, promote, go back, skip to step)
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -52,7 +54,9 @@ You need the following:
 
 ## Operations
 
-This node provides access to the **Planning Center People API v2**, including operations for:
+### Planning Center People
+
+Full access to the **Planning Center People API v2**, including operations for:
 
 - **People** - Manage person records and profiles
 - **Lists** - Create and manage dynamic lists of people
@@ -69,6 +73,17 @@ This node provides access to the **Planning Center People API v2**, including op
 - **And many more...**
 
 Each operation supports filtering, pagination, and additional parameters through the "Additional Fields" option.
+
+### PCO Workflow Actions
+
+Perform actions on workflow cards for a given person:
+
+- **Skip Step** - Skip the current step on a workflow card
+- **Promote** - Complete the current step and advance the card
+- **Go Back** - Move a workflow card back one step
+- **Skip to Step** - Skip forward repeatedly until reaching a target step (with configurable max skips safety limit)
+
+All operations require a **Person ID** and **Workflow Card ID**. The node handles PCO rate limiting automatically with retry logic.
 
 ## Credentials
 
@@ -117,6 +132,15 @@ In n8n, create a new "People API" credential with:
 3. Select **Operation**: PATCH /people/{person_id}
 4. Enter the **Person Id**
 5. Configure the fields to update in **Additional Fields**
+6. Execute the workflow
+
+### Example 4: Skip a Workflow Card to a Specific Step
+
+1. Add the **PCO Workflow Actions** node
+2. Select **Operation**: Skip to Step
+3. Enter the **Person ID** and **Workflow Card ID**
+4. Enter the **Target Step ID** to skip to
+5. Optionally adjust **Max Skips** (default: 10)
 6. Execute the workflow
 
 ### Tips
@@ -180,14 +204,17 @@ npm run format
 ```
 n8n-nodes-pco/
 ├── credentials/
-│   └── peopleApi.credentials.ts    # API authentication
+│   └── peopleApi.credentials.ts        # API authentication
 ├── nodes/
 │   └── pco/
-│       ├── people.node.ts          # Main node implementation
-│       ├── people.node.json        # Node metadata
-│       ├── openapi_people.json     # OpenAPI specification
-│       └── logo.png                # Node icon
-└── dist/                           # Compiled output
+│       ├── people.node.ts              # People API node (OpenAPI-generated)
+│       ├── people.node.json            # People node metadata
+│       ├── pcoWorkflowActions.node.ts  # Workflow Actions node (hand-written)
+│       ├── pcoWorkflowActions.node.json# Workflow Actions metadata
+│       ├── openapi_people.json         # OpenAPI specification
+│       ├── logo.png                    # Node icon
+│       └── logo.svg                    # Node icon (SVG)
+└── dist/                               # Compiled output
 ```
 
 ## Resources
