@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Fix: `get_cards` returns empty output instead of sentinel message when no cards found (prevents downstream 404 errors)
+
 ## 1.2.0
 
 - Feat: add `get_cards` operation — fetch active workflow cards across multiple workflows with optional step ID filtering

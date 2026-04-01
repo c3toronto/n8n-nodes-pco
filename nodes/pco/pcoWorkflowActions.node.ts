@@ -287,11 +287,7 @@ export class pcoWorkflowActions implements INodeType {
 						}
 					}
 
-					if (returnData.length === 0) {
-						returnData.push({
-							json: { message: 'No matching cards found', workflows_checked: workflowIds.length },
-						});
-					}
+					// No sentinel item — empty output means downstream nodes won't execute
 					break;
 				}
 
