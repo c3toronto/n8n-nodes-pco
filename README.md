@@ -76,14 +76,15 @@ Each operation supports filtering, pagination, and additional parameters through
 
 ### PCO Workflow Actions
 
-Perform actions on workflow cards for a given person:
+Query and perform actions on workflow cards:
 
+- **Get Cards** - Fetch active workflow cards across multiple workflows, optionally filtered by step IDs. Accepts comma-separated workflow IDs and step IDs. Handles pagination automatically.
 - **Skip Step** - Skip the current step on a workflow card
-- **Promote** - Complete the current step and advance the card
+- **Promote** - Complete the current step and advance the card. Optionally enable "Promote Until Completed" to loop until the card reaches Completed status.
 - **Go Back** - Move a workflow card back one step
 - **Skip to Step** - Skip forward repeatedly until reaching a target step (with configurable max skips safety limit)
 
-All operations require a **Person ID** and **Workflow Card ID**. The node handles PCO rate limiting automatically with retry logic.
+**Get Cards** requires **Workflow IDs**. All other operations require a **Person ID** and **Workflow Card ID**. The node handles PCO rate limiting automatically with retry logic.
 
 ## Credentials
 
@@ -134,7 +135,23 @@ In n8n, create a new "People API" credential with:
 5. Configure the fields to update in **Additional Fields**
 6. Execute the workflow
 
-### Example 4: Skip a Workflow Card to a Specific Step
+### Example 4: Get Cards on Specific Steps
+
+1. Add the **PCO Workflow Actions** node
+2. Select **Operation**: Get Cards
+3. Enter **Workflow IDs**: `689436,689442` (comma-separated)
+4. Enter **Step IDs (Filter)**: `1868744,1953596` (comma-separated, or leave empty for all active cards)
+5. Execute the workflow — returns one item per matching card with `card_id`, `person_id`, `step_id`, `step_name`
+
+### Example 5: Promote a Card to Completed
+
+1. Add the **PCO Workflow Actions** node
+2. Select **Operation**: Promote
+3. Enter the **Person ID** and **Workflow Card ID**
+4. Enable **Promote Until Completed** to keep promoting until the card reaches Completed status
+5. Execute the workflow
+
+### Example 6: Skip a Workflow Card to a Specific Step
 
 1. Add the **PCO Workflow Actions** node
 2. Select **Operation**: Skip to Step

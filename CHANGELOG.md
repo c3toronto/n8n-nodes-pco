@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- Feat: add `get_cards` operation — fetch active workflow cards across multiple workflows with optional step ID filtering
+- Feat: add `promote_until_completed` option to `promote` — loops until card reaches Completed status
+
 ## 1.1.1
 
 - Fix: lowercase class export for pcoWorkflowActions
