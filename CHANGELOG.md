@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+
+- Fix: `where[...]` filters now work. Bracketed query parameter names broke n8n's lodash-style parameter lookup, so setting any such filter failed at runtime with "Could not get parameter". Fields are renamed internally to path-safe names (e.g. `where[step_id]` → `where_step_id`); the query string sent to the API is unchanged, and display names are untouched.
+- Note: if you previously set a `where[...]` filter (it would have errored), open the node and re-select the filter — values saved under the old bracketed name are ignored, so the node would otherwise run unfiltered.
+
 ## 1.2.1
 
 - Fix: `get_cards` returns empty output instead of sentinel message when no cards found (prevents downstream 404 errors)

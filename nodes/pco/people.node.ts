@@ -87,7 +87,28 @@ additionalFieldsByOperation.forEach((fields, operation) => {
   }
 });
 
-properties = groupedProperties;
+// Fix: n8n resolves parameter paths with lodash-style get(), which parses square
+// brackets as nested keys - so a property named "where[step_id]" is looked up as
+// where.step_id, is never found, and the node fails at runtime with
+// "Could not get parameter". The OpenAPI builder already sanitises dots in property
+// names for this same reason but does not handle brackets. Give such fields a
+// path-safe name and keep the real query-string name in routing.send.property.
+const makeNamePathSafe = (prop: any): any => {
+  if (typeof prop.name === 'string' && /[[\]]/.test(prop.name)) {
+    const apiName = prop.routing?.send?.property ?? prop.name;
+    prop.name = prop.name.replace(/\[/g, '_').replace(/\]/g, '');
+    if (prop.routing?.send) {
+      prop.routing.send.property = apiName;
+      prop.routing.send.propertyInDotNotation = false;
+    }
+  }
+  if ((prop.type === 'collection' || prop.type === 'fixedCollection') && Array.isArray(prop.options)) {
+    prop.options.forEach(makeNamePathSafe);
+  }
+  return prop;
+};
+
+properties = groupedProperties.map(makeNamePathSafe);
 
 export class people implements INodeType {
   description: INodeTypeDescription = {
